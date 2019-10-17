@@ -1,15 +1,12 @@
-import { BadInput } from 'src/app/common/bad-input';
-import { NotFoundError } from 'src/app/common/not-found-error';
-import { AppError } from './../common/app-error';
-import { Http } from '@angular/http';
 import { Injectable } from '@angular/core';
-import 'rxjs/add/operator/catch';
-import { Observable } from 'rxjs/Observable'; 
+import { Http } from '@angular/http';
+import { Observable } from 'rxjs/Observable';
+import { BadInput } from '../common/bad-input';
+import { AppError } from '../common/app-error';
+import { NotFoundError } from '../common/not-found-error';
 
-@Injectable({
-  providedIn: 'root'
-})
-export class PostService {
+@Injectable()
+export class DataService {
   private url = 'http://jsonplaceholder.typicode.com/posts';
 
   constructor(private http: Http) { }

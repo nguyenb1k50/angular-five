@@ -1,3 +1,4 @@
+import { DataService } from './../services/data.service';
 import { BadInput } from 'src/app/common/bad-input';
 import { AppError } from 'src/app/common/app-error';
 import { Component, OnInit } from "@angular/core";
@@ -11,9 +12,11 @@ import { NotFoundError } from 'src/app/common/not-found-error';
 })
 export class PostsComponent implements OnInit {
   posts: any[];
-  constructor(private service: PostService) {}
+  constructor(
+    private DataService: DataService
+    ) {}
   ngOnInit() {
-    this.service.getPost().subscribe(
+    this.DataService.getPost().subscribe(
       response => {
       this.posts = response.json();
     }, 
@@ -23,7 +26,7 @@ export class PostsComponent implements OnInit {
   }
   createPost(input: HTMLInputElement) {
     let post = { title: input.value };
-    this.service.createPost(post).subscribe(
+    this.DataService.createPost(post).subscribe(
       response => {
       post["id"] = response.json().id;
       this.posts.splice(0, 0, post);
@@ -40,14 +43,14 @@ export class PostsComponent implements OnInit {
  }
   updatePost(post) {
     // console.log(post);
-    this.service.updatePost(post).subscribe(response => {
+    this.DataService.updatePost(post).subscribe(response => {
       console.log(response.json());
     });
   }
   deletePost(post) {
     // console.log(post);
     // this.http.delete(this.url + '/' + post.id)
-    this.service.deletePost(5555).subscribe(
+    this.DataService.deletePost(5555).subscribe(
       response => {
         let index = this.posts.indexOf(post);
         this.posts.splice(index, 1);
